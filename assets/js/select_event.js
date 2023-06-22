@@ -11,13 +11,27 @@ window.onload = async function SelectTicket(event_id) {
         const origin_min_date = eventData_json.event_start_date
         const origin_max_date = eventData_json.event_end_date
 
-        const min_date = origin_min_date.split('T')[0]
-        const max_date = origin_max_date.split('T')[0]
+        const min_date = origin_min_date.split('.')
+        const max_date = origin_max_date.split('.')
+
+        const start_date = "20"+min_date[0]+'-'+min_date[1]+'-'+min_date[2]
+        const end_date = "20"+max_date[0]+'-'+max_date[1]+'-'+max_date[2]
+
+        let now_utc = Date.now()
+        let timeOff = new Date().getTimezoneOffset()*60000;
+        let tomorrow = new Date(now_utc-timeOff+86400000).toISOString().split("T")[0];
 
         const date = document.getElementById('rsrvt_date');
 
-        date.setAttribute("min",`${min_date}`)
-        date.setAttribute("max",`${max_date}`)
+        if (start_date < tomorrow) {
+            console.log("tomorrow : "+`${tomorrow}`+" > "+"start_date : "+`${start_date}`)
+            date.setAttribute("min",`${tomorrow}`)
+        } else {
+            console.log("start_date : "+`${start_date}`+" > "+"tomorrow : "+`${tomorrow}`)
+            date.setAttribute("min",`${start_date}`)
+        }
+
+        date.setAttribute("max",`${end_date}`)
 
     } else {
         console.log(eventData_json)

@@ -1,5 +1,11 @@
 window.onload = () => {
-    console.log('로딩')
+    let now_utc = Date.now()
+    let timeOff = new Date().getTimezoneOffset()*60000;
+    let tomorrow = new Date(now_utc-timeOff+86400000).toISOString().split("T")[0];
+
+    const date = document.getElementById('rsrvt_date');
+
+    date.setAttribute("min",`${tomorrow}`)
 }
 
 
@@ -14,16 +20,21 @@ async function handleSelectHanbok(hanbok_id) {
     let int_quantity = Number(quantity)
 
     first = date.split('-')
+    first1 = first[2].split('')
     middle = time.split(':')
-    order_id = first[2]+middle[1]+first[0]+middle[0]+first[1]
-
-
+    middle1 = middle[0].split('')
+    
     const response = await fetch(`${backend_base_url}/api/v1/stores/hanbok/1`, {
     })
-
+    
     if (response.status == 200) {
         const response_json = await response.json()
         console.log(response_json)
+
+        const store_id = response_json.store
+        
+        order_id = first1[1]+middle1[1]+first1[0]+middle1[0]+middle[1]+first[0]+`${store_id}`
+        console.log(order_id)
 
         const item = response_json.hanbok_name
         const order_stf_id = response_json.owner
