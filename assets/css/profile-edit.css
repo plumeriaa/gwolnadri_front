@@ -30,3 +30,20 @@
     font-family: 'Noto Sans KR', sans-serif;
     margin: 0 0 80px 5px;
 }
+
+.edit-button {
+ 
+    margin: 5px 5px 5px 5px;
+    width: 100%;
+    border: 2px solid gray;
+    background: inherit;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 18px;
+    font-weight: 400;
+    color: gray;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    margin: 10px 5px 10px 5px;
+}
